@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckxsvc4oabyn3"]
+
+[ext_resource type="Script" uid="uid://cp047psyhovtp" path="res://speed_boost.gd" id="1_j6rfq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j6rfq"]
+radius = 49.396355
+
+[node name="SpeedBoost" type="Area2D"]
+script = ExtResource("1_j6rfq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(262, 114)
+shape = SubResource("CircleShape2D_j6rfq")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-379.28522, -26.233345)
+scale = Vector2(2.5238075, 1.3666668)
+color = Color(1, 1, 0.05882353, 1)
+polygon = PackedVector2Array(264, 77, 246, 111, 254, 109, 243, 137, 263, 101, 256, 103)
+
+[connection signal="body_entered" from="." to="." method="_on_SpeedBoost_body_entered"]

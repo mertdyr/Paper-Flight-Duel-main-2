@@ -1,0 +1,238 @@
+[gd_scene load_steps=24 format=3 uid="uid://qnrd4r4ctqvq"]
+
+[ext_resource type="Script" uid="uid://dr4j4cj1yuig3" path="res://Game.gd" id="1_wbfu4"]
+[ext_resource type="PackedScene" uid="uid://c7k5glgffomht" path="res://Paper_plane.tscn" id="2_u44n3"]
+[ext_resource type="PackedScene" uid="uid://pwxokw4c2idl" path="res://PaperPlane_Yellow.tscn" id="3_sb48q"]
+[ext_resource type="Script" uid="uid://c7sbbjra5l01t" path="res://UI.gd" id="3_u44n3"]
+[ext_resource type="PackedScene" uid="uid://brdo1iipgaw12" path="res://fuel_item.tscn" id="4_gwjdr"]
+[ext_resource type="PackedScene" uid="uid://ckxsvc4oabyn3" path="res://speed_boost.tscn" id="4_joorw"]
+[ext_resource type="Texture2D" uid="uid://3v6nv7qfkq2p" path="res://red_arrow.png" id="5_t88pq"]
+[ext_resource type="Texture2D" uid="uid://di1mmovvffaog" path="res://player_black.png" id="6_3mrqo"]
+[ext_resource type="Texture2D" uid="uid://b3ssll78a5ymm" path="res://tree (1).png" id="6_gwjdr"]
+[ext_resource type="Texture2D" uid="uid://crrk2vphkcuj6" path="res://player_yellow.png" id="7_joorw"]
+[ext_resource type="Texture2D" uid="uid://b8cicc0606t8l" path="res://piramit (1).png" id="7_lvtmh"]
+[ext_resource type="Texture2D" uid="uid://bma01cgut3bxo" path="res://Iglo (1).png" id="8_yyih5"]
+[ext_resource type="Texture2D" uid="uid://dsvln3alk50c7" path="res://home.png" id="10_bvhbk"]
+[ext_resource type="Shader" uid="uid://clks7or0khlkg" path="res://Game.gdshader" id="13_lvtmh"]
+[ext_resource type="AudioStream" uid="uid://cegnjh036vcem" path="res://launch.wav" id="14_wuoie"]
+[ext_resource type="AudioStream" uid="uid://c07usuy30m86n" path="res://wind.ogg" id="15_bvhbk"]
+[ext_resource type="AudioStream" uid="uid://rsp053o122rt" path="res://fuel.wav" id="16_cpsxm"]
+[ext_resource type="AudioStream" uid="uid://752uru6ay8h8" path="res://boost.wav" id="17_hmewc"]
+[ext_resource type="AudioStream" uid="uid://dgtnc3yay0vwm" path="res://land.wav" id="18_7ged1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bvhbk"]
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_cpsxm"]
+font_size = 14
+font_color = Color(0.06999569, 6.78794e-06, 0.0748016, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3mrqo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yyih5"]
+shader = ExtResource("13_lvtmh")
+shader_parameter/grass_color = Color(0, 0.537, 0.149, 1)
+shader_parameter/desert_color = Color(0.878, 0.753, 0.333, 1)
+shader_parameter/snow_color = Color(0.937, 1, 1, 1)
+shader_parameter/grass_limit = 3000.0
+shader_parameter/desert_limit = 6000.0
+shader_parameter/snow_limit = 15000.0
+shader_parameter/camera_x = 0.0
+shader_parameter/noise_scale = 7.0
+shader_parameter/noise_strength = 0.12
+shader_parameter/wave_strength = 0.06
+shader_parameter/wave_freq = 12.0
+shader_parameter/top_light = 1.08
+shader_parameter/bottom_dark = 0.88
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_wbfu4")
+plane_black_scene = ExtResource("2_u44n3")
+plane_yellow_scene = ExtResource("3_sb48q")
+fuel_item_scene = ExtResource("4_gwjdr")
+speed_boost_scene = ExtResource("4_joorw")
+texture_tree = ExtResource("6_gwjdr")
+texture_pyramid = ExtResource("7_lvtmh")
+texture_igloo = ExtResource("8_yyih5")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(573, 321)
+zoom = Vector2(1.3, 1.3)
+limit_bottom = 640
+position_smoothing_enabled = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("3_u44n3")
+
+[node name="PowerBar" type="ProgressBar" parent="UI"]
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 480.0
+offset_bottom = 80.0
+min_value = 200.0
+max_value = 1500.0
+value = 200.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="UI/PowerBar"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 3.0
+offset_right = 78.0
+offset_bottom = 29.0
+text = "   POWER"
+
+[node name="BoostBar" type="ProgressBar" parent="UI"]
+modulate = Color(0.9253099, 0.4695158, 0, 1)
+offset_left = 20.0
+offset_top = 90.0
+offset_right = 220.0
+offset_bottom = 110.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="UI/BoostBar"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 1.0
+offset_right = 62.0
+offset_bottom = 23.0
+text = "BOOST"
+label_settings = SubResource("LabelSettings_bvhbk")
+
+[node name="Label2" type="Label" parent="UI/BoostBar"]
+layout_mode = 0
+offset_left = 205.0
+offset_top = -1.0
+offset_right = 278.0
+offset_bottom = 21.0
+text = "(Press W)"
+label_settings = SubResource("LabelSettings_cpsxm")
+
+[node name="StatusLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 1140.0
+offset_bottom = 40.0
+
+[node name="ResultsPanel" type="PanelContainer" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -73.5
+offset_right = 57.0
+offset_bottom = 73.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ResultsPanel"]
+layout_mode = 2
+
+[node name="ResultsText" type="Label" parent="UI/ResultsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="P1ScoreText" type="Label" parent="UI/ResultsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="P2ScoreText" type="Label" parent="UI/ResultsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="RetryButton" type="Button" parent="UI/ResultsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Play again"
+
+[node name="MenuButton" type="Button" parent="UI/ResultsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Back to Menu"
+
+[node name="MessageTimer" type="Timer" parent="UI"]
+wait_time = 2.0
+one_shot = true
+
+[node name="BackButton" type="Button" parent="UI"]
+anchors_preset = -1
+offset_left = 487.0
+offset_top = 48.0
+offset_right = 519.0
+offset_bottom = 85.0
+icon = ExtResource("10_bvhbk")
+flat = true
+expand_icon = true
+
+[node name="Arrow" type="Sprite2D" parent="."]
+position = Vector2(100, 350)
+scale = Vector2(0.19252874, 0.2319392)
+texture = ExtResource("5_t88pq")
+
+[node name="PlayerBlack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(45, 390)
+scale = Vector2(0.12880436, 0.12343752)
+texture = ExtResource("6_3mrqo")
+
+[node name="PlayerYellow" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(45.250004, 392.00003)
+scale = Vector2(0.048233695, 0.053125016)
+texture = ExtResource("7_joorw")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 533)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(575, -95)
+shape = SubResource("WorldBoundaryShape2D_3mrqo")
+
+[node name="ColorRect" type="ColorRect" parent="Ground"]
+material = SubResource("ShaderMaterial_yyih5")
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -98.0
+offset_right = 1153.0
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.00022955962, 0.5378692, 0.15226135, 1)
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BG" type="ColorRect" parent="BackgroundLayer"]
+offset_left = -1.0
+offset_top = -3.0
+offset_right = 1153.0
+offset_bottom = 640.0
+color = Color(0.19215687, 0.45490196, 1, 1)
+
+[node name="SfxLaunch" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_wuoie")
+
+[node name="SfxWind" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_bvhbk")
+
+[node name="SfxFuel" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_cpsxm")
+
+[node name="SfxBoost" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_hmewc")
+
+[node name="SfxLand" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_7ged1")
+
+[connection signal="show_round_results" from="." to="UI" method="_on_game_show_round_results"]
+[connection signal="show_tournament_results" from="." to="UI" method="_on_game_show_tournament_results"]
+[connection signal="update_angle" from="." to="UI" method="_on_game_update_angle"]
+[connection signal="update_boost_bar" from="." to="UI" method="_on_game_update_boost_bar"]
+[connection signal="update_power_bar" from="." to="UI" method="_on_game_update_power_bar"]
+[connection signal="update_score_display" from="." to="UI" method="_on_game_update_score_display"]
+[connection signal="update_ui_text" from="." to="UI" method="_on_game_update_ui_text"]
+[connection signal="back_to_menu" from="UI" to="." method="_on_ui_back_to_menu"]
+[connection signal="retry_game" from="UI" to="." method="_on_ui_retry_game"]
+[connection signal="timeout" from="UI/MessageTimer" to="UI" method="_on_message_timer_timeout"]
+[connection signal="pressed" from="UI/BackButton" to="." method="_on_back_button_pressed"]

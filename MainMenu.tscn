@@ -1,0 +1,143 @@
+[gd_scene load_steps=8 format=3 uid="uid://m44l5picjhad"]
+
+[ext_resource type="Script" uid="uid://bkw22hnfko1ay" path="res://MainMenu.gd" id="1_i26rj"]
+[ext_resource type="Texture2D" uid="uid://cmmnwrmswqfid" path="res://paper-plane.png" id="2_h7a2f"]
+[ext_resource type="Texture2D" uid="uid://bv5imn3q2lgww" path="res://main_menu_bg.png" id="2_qoqlk"]
+[ext_resource type="Texture2D" uid="uid://bmuiuhpl4oci6" path="res://Adobe Express - file-2.png" id="3_qoqlk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i26rj"]
+font_size = 72
+font_color = Color(1, 1, 0.03137255, 1)
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.5882353)
+shadow_offset = Vector2(6, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoqlk"]
+bg_color = Color(0.36862746, 0.36862746, 0.36862746, 0.7176471)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_iwfq2"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i26rj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -554.0
+offset_top = -298.0
+offset_right = 609.0
+offset_bottom = 408.0
+texture = ExtResource("2_qoqlk")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -337.0
+offset_right = 125.0
+offset_bottom = 337.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Paper Flight Duel"
+label_settings = SubResource("LabelSettings_i26rj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="EasyButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Easy
+"
+
+[node name="MediumButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Medium"
+
+[node name="HardButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Hard"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Quit"
+
+[node name="PaperPlane1" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -487.0
+offset_top = 40.0
+offset_right = 25.0
+offset_bottom = 552.0
+rotation = 0.053863943
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_h7a2f")
+
+[node name="PaperPlane2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 6.0
+offset_right = 1155.0
+offset_bottom = 865.0
+rotation = 0.3384452
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("3_qoqlk")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = -107.0
+offset_top = 235.0
+offset_right = 149.0
+offset_bottom = 362.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qoqlk")
+
+[node name="CreditsLabel" type="Label" parent="PanelContainer"]
+layout_mode = 2
+text = "   Credits: 
+ Ahmet Emre Filiz 
+ Kıvanç Mazlumoğlu
+ Osman Mert Duyar"
+label_settings = SubResource("LabelSettings_iwfq2")
